@@ -62,3 +62,15 @@ validation et de test séparés, puis sauvegarde le pipeline complet dans
 `models/` avec ses métadonnées. Le dataset de démonstration est trop petit
 pour produire des performances représentatives ; les métriques affichées sont
 uniquement techniques.
+
+## Test d'inférence locale
+
+Après avoir généré le modèle avec la commande précédente, lancez le mode
+interactif :
+
+```powershell
+python -m scripts.predict
+```
+
+Le programme demande un titre et un texte. Des exemples synthétiques sont
+disponibles avec `python -m scripts.predict --example`.
