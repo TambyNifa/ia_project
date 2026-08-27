@@ -106,3 +106,21 @@ def validate_csv(path: Path) -> dict[str, Any]:
     """Charge et valide un CSV, en laissant le fichier source inchangé."""
     LOGGER.info("Validation du fichier dataset : %s", path)
     return validate_dataframe(pd.read_csv(path))
+
+
+def get_valid_rows(dataframe: pd.DataFrame) -> pd.DataFrame:
+    """Retourne une copie des lignes valides après validation explicite."""
+    required = list(REQUIRED_COLUMNS)
+    if any(column not in dataframe for column in required):
+        raise ValueError("Le dataframe ne contient pas toutes les colonnes requises.")
+    empty_text_mask = dataframe["text"].fillna("").astype(str).str.strip().eq("")
+    empty_title_mask = dataframe["title"].fillna("").astype(str).str.strip().eq("")
+    invalid_mask = (
+        dataframe[list(NON_NULLABLE_COLUMNS)].isna().any(axis=1)
+        | empty_text_mask
+        | empty_title_mask
+        | ~dataframe["label"].isin(VALID_LABELS)
+        | ~dataframe["language"].isin(VALID_LANGUAGES)
+        | dataframe["id"].duplicated(keep=False)
+    )
+    return dataframe.loc[~invalid_mask].copy()

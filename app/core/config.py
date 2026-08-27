@@ -12,6 +12,8 @@ class Settings(BaseSettings):
     api_prefix: str = "/api/v1"
     database_url: str = "sqlite:///./tena_ai.db"
     model_path: str = "models/tena_ai.joblib"
+    model_metadata_path: str = "models/model_metadata.json"
+    random_state: int = 42
 
     model_config = SettingsConfigDict(
         env_file=".env",

@@ -48,3 +48,17 @@ python -m scripts.validate_dataset data/raw/demo_dataset.csv
 
 La commande affiche un rapport JSON et retourne un code différent de zéro si
 des lignes invalides sont détectées.
+
+## Baseline ML
+
+La baseline technique TF-IDF + Logistic Regression se lance avec :
+
+```powershell
+python -m scripts.train_baseline
+```
+
+Elle utilise une copie des lignes valides du dataset, conserve les jeux de
+validation et de test séparés, puis sauvegarde le pipeline complet dans
+`models/` avec ses métadonnées. Le dataset de démonstration est trop petit
+pour produire des performances représentatives ; les métriques affichées sont
+uniquement techniques.
