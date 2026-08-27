@@ -1,0 +1,17 @@
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.coverage
+htmlcov/
+.env
+*.egg-info/
+tena_ai.db
+mlruns/
+data/raw/*
+!data/raw/demo_dataset.csv
+data/processed/*
+models/*
+!models/.gitkeep

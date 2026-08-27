@@ -1,0 +1,10 @@
+id,title,text,language,source,publication_date,label,created_at
+demo-001,Information officielle,"Le ministère publie une annonce vérifiable.",fr,Source institutionnelle,2026-01-10,PROBABLEMENT_FIABLE,2026-01-11T10:00:00
+demo-002,Fampitandremana,"Ny vaovao dia mbola tsy voamarina ary miparitaka amin'ny tambajotra.",mg,Réseau social,2026-01-12,SUSPECT,2026-01-12T10:00:00
+demo-003,Annonce à vérifier,"Ny vaovao mila fanamarinana avy amin'ny loharano hafa.",mixed,,2026-01-13,DIFFICILE_A_DETERMINER,2026-01-13T10:00:00
+demo-004,Texte inconnu,"Qwerty zyx 123",unknown,,2026-01-14,DIFFICILE_A_DETERMINER,2026-01-14T10:00:00
+demo-005,Titre valide,"Un contenu de démonstration distinct.",fr,Journal,2026-01-15,PROBABLEMENT_FIABLE,2026-01-15T10:00:00
+demo-006,Titre invalide,"Contenu avec label invalide.",fr,Source,2026-01-16,LABEL_INVALIDE,2026-01-16T10:00:00
+demo-007,Titre langue invalide,"Contenu avec langue invalide.",xx,Source,2026-01-17,SUSPECT,2026-01-17T10:00:00
+demo-008,Titre vide,"   ",fr,Source,2026-01-18,SUSPECT,2026-01-18T10:00:00
+demo-005,Titre valide,"Un contenu de démonstration distinct.",fr,Journal,2026-01-15,PROBABLEMENT_FIABLE,2026-01-15T10:00:00
