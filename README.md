@@ -73,6 +73,10 @@ Le SVM utilise `decision_function()` et ne présente pas de probabilités. Sa
 configuration est sélectionnée sur `dev`; `test` et `fr_zeroshot` restent
 réservés aux évaluations finales et complémentaires.
 
+La préparation XLM-RoBERTa est documentée dans
+[`docs/XLM_ROBERTA.md`](docs/XLM_ROBERTA.md). Elle n'est pas installée ni
+exécutée dans l'environnement local actuel.
+
 ## Test d'inférence locale
 
 Après avoir généré le modèle avec la commande précédente, lancez le mode

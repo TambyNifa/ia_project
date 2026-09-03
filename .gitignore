@@ -30,6 +30,8 @@ artifacts/
 checkpoints/
 wandb/
 tensorboard/
+huggingface_cache/
+models/tena_ai_xlm_roberta_v1/
 data/raw/*
 !data/raw/demo_dataset.csv
 data/external/*
@@ -40,3 +42,9 @@ data/processed/*
 !data/processed/.gitkeep
 models/*
 !models/.gitkeep
+
+data/processed/x_fact_v1/
+scripts/
+models/
+requirements-transformers.txt
+notebooks/tena_ai_xlm_roberta_colab.ipynb
