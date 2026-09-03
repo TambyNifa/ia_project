@@ -13,7 +13,7 @@ class DatasetRecord(BaseModel):
     model_config = ConfigDict(extra="forbid", strict=True)
 
     id: str
-    title: str
+    title: str | None = None
     text: str
     language: str
     source: str | None = None
@@ -21,7 +21,7 @@ class DatasetRecord(BaseModel):
     label: str
     created_at: datetime
 
-    @field_validator("id", "title", "text", "label", "language")
+    @field_validator("id", "text", "label", "language")
     @classmethod
     def validate_non_empty(cls, value: str) -> str:
         if not value.strip():

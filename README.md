@@ -63,6 +63,16 @@ validation et de test séparés, puis sauvegarde le pipeline complet dans
 pour produire des performances représentatives ; les métriques affichées sont
 uniquement techniques.
 
+La comparaison Linear SVM se lance avec :
+
+```powershell
+python -m scripts.train_linear_svm
+```
+
+Le SVM utilise `decision_function()` et ne présente pas de probabilités. Sa
+configuration est sélectionnée sur `dev`; `test` et `fr_zeroshot` restent
+réservés aux évaluations finales et complémentaires.
+
 ## Test d'inférence locale
 
 Après avoir généré le modèle avec la commande précédente, lancez le mode

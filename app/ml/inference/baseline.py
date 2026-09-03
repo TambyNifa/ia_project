@@ -34,7 +34,9 @@ class BaselinePredictor:
         combined_text = f"{clean_title} {clean_body}".strip()
         probabilities = self.model.predict_proba([combined_text])[0]
         classifier = self.model.named_steps["classifier"]
-        probability_by_label = {label.name: 0.0 for label in Label}
+        trained_classes = self.metadata.get("trained_classes")
+        labels = trained_classes if trained_classes else [label.name for label in Label]
+        probability_by_label = {label: 0.0 for label in labels}
         for class_name, probability in zip(classifier.classes_, probabilities):
             probability_by_label[str(class_name)] = float(probability)
         prediction = str(self.model.predict([combined_text])[0])

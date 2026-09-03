@@ -19,7 +19,7 @@ REQUIRED_COLUMNS = (
     "label",
     "created_at",
 )
-NON_NULLABLE_COLUMNS = ("id", "title", "text", "language", "label", "created_at")
+NON_NULLABLE_COLUMNS = ("id", "text", "language", "label", "created_at")
 
 
 def validate_dataframe(dataframe: pd.DataFrame) -> dict[str, Any]:
@@ -47,7 +47,6 @@ def validate_dataframe(dataframe: pd.DataFrame) -> dict[str, Any]:
         column: int(count) for column, count in missing_values.items() if count
     }
     empty_text_mask = dataframe["text"].fillna("").astype(str).str.strip().eq("")
-    empty_title_mask = dataframe["title"].fillna("").astype(str).str.strip().eq("")
     invalid_labels = (
         dataframe.loc[~dataframe["label"].isin(VALID_LABELS), "label"]
         .value_counts(dropna=False)
@@ -63,7 +62,6 @@ def validate_dataframe(dataframe: pd.DataFrame) -> dict[str, Any]:
     invalid_mask = (
         dataframe[list(NON_NULLABLE_COLUMNS)].isna().any(axis=1)
         | empty_text_mask
-        | empty_title_mask
         | ~dataframe["label"].isin(VALID_LABELS)
         | ~dataframe["language"].isin(VALID_LANGUAGES)
         | duplicate_ids_mask
@@ -82,7 +80,7 @@ def validate_dataframe(dataframe: pd.DataFrame) -> dict[str, Any]:
             str(key): int(value) for key, value in invalid_languages.items()
         },
         "empty_texts": int(empty_text_mask.sum()),
-        "empty_titles": int(empty_title_mask.sum()),
+        "empty_titles": 0,
         "missing_columns": [],
         "label_distribution": {
             str(key): int(value)
@@ -114,11 +112,9 @@ def get_valid_rows(dataframe: pd.DataFrame) -> pd.DataFrame:
     if any(column not in dataframe for column in required):
         raise ValueError("Le dataframe ne contient pas toutes les colonnes requises.")
     empty_text_mask = dataframe["text"].fillna("").astype(str).str.strip().eq("")
-    empty_title_mask = dataframe["title"].fillna("").astype(str).str.strip().eq("")
     invalid_mask = (
         dataframe[list(NON_NULLABLE_COLUMNS)].isna().any(axis=1)
         | empty_text_mask
-        | empty_title_mask
         | ~dataframe["label"].isin(VALID_LABELS)
         | ~dataframe["language"].isin(VALID_LANGUAGES)
         | dataframe["id"].duplicated(keep=False)
