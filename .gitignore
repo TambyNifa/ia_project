@@ -44,7 +44,5 @@ models/*
 !models/.gitkeep
 
 data/processed/x_fact_v1/
-scripts/
+
 models/
-requirements-transformers.txt
-notebooks/tena_ai_xlm_roberta_colab.ipynb
