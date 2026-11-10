@@ -43,7 +43,8 @@ seed = 42
 
 ## Environnement recommandé
 
-- Python 3.11 (plutôt que Python 3.14 pour la compatibilité des frameworks) ;
+- Python 3.13 pour l'environnement Colab ciblé, sous réserve de la disponibilité
+  de builds PyTorch compatibles avec le runtime ;
 - GPU CUDA avec au moins 8 Go de VRAM pour un pilote raisonnable ;
 - PyTorch 2.2 ou version compatible avec le CUDA du système ;
 - Transformers 4.45 ou version compatible ;
@@ -51,8 +52,10 @@ seed = 42
 - Accelerate.
 
 Les versions optionnelles sont listées dans
-[`requirements-transformers.txt`](../requirements-transformers.txt). Elles ne
-sont volontairement pas installées dans l'environnement local actuel.
+[`requirements-transformers.txt`](../requirements-transformers.txt), avec
+Transformers 4.57.x et Datasets 3.6.x. Le fichier ne force pas l'installation de
+PyTorch : conservez le build CUDA fourni par Colab ou installez un build adapté
+au runtime séparément si PyTorch n'est pas déjà présent.
 
 ## Procédure Google Colab (Phase 5C)
 

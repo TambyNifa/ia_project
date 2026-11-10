@@ -18,6 +18,20 @@ from app.ml.transformers.dataset import (
 )
 
 
+def compute_classification_metrics(prediction) -> dict[str, float]:
+    """Calcule les métriques sur un EvalPrediction de Hugging Face Trainer."""
+    logits = prediction.predictions
+    if isinstance(logits, tuple):
+        logits = logits[0]
+    predicted_labels = np.argmax(logits, axis=-1)
+    labels = prediction.label_ids
+    return {
+        "accuracy": float(accuracy_score(labels, predicted_labels)),
+        "macro_f1": float(f1_score(labels, predicted_labels, average="macro")),
+        "weighted_f1": float(f1_score(labels, predicted_labels, average="weighted")),
+    }
+
+
 def train_xlm_roberta(
     config: XLMRobertaConfig,
     output_dir: Path,
@@ -70,15 +84,6 @@ def train_xlm_roberta(
     )
     dev_dataset = TokenizedDataset(dev_tokens, encode_labels(dev["label"].tolist()))
 
-    def compute_metrics(prediction):
-        predictions = np.argmax(prediction.predictions, axis=-1)
-        labels = prediction.label_ids
-        return {
-            "accuracy": accuracy_score(labels, predictions),
-            "macro_f1": f1_score(labels, predictions, average="macro"),
-            "weighted_f1": f1_score(labels, predictions, average="weighted"),
-        }
-
     output_dir.mkdir(parents=True, exist_ok=True)
     arguments = TrainingArguments(
         output_dir=str(output_dir),
@@ -88,7 +93,7 @@ def train_xlm_roberta(
         num_train_epochs=config.num_epochs,
         weight_decay=config.weight_decay,
         warmup_ratio=config.warmup_ratio,
-        evaluation_strategy="epoch",
+        eval_strategy="epoch",
         save_strategy="epoch",
         load_best_model_at_end=True,
         metric_for_best_model="macro_f1",
@@ -104,9 +109,9 @@ def train_xlm_roberta(
         args=arguments,
         train_dataset=train_dataset,
         eval_dataset=dev_dataset,
-        tokenizer=tokenizer,
+        processing_class=tokenizer,
         data_collator=DataCollatorWithPadding(tokenizer),
-        compute_metrics=compute_metrics,
+        compute_metrics=compute_classification_metrics,
     )
     trainer.train()
     metrics = trainer.evaluate()

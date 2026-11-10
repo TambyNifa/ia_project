@@ -36,10 +36,10 @@ def encode_labels(labels: list[str]) -> list[int]:
 
 
 def tokenize_dataframe(dataframe: pd.DataFrame, tokenizer, max_length: int):
-    """Tokenise sans modifier le dataframe source."""
+    """Tokenise sans padding ; le collator complète dynamiquement chaque batch."""
     return tokenizer(
         dataframe["model_text"].tolist(),
-        padding=True,
+        padding=False,
         truncation=True,
         max_length=max_length,
     )

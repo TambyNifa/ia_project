@@ -32,7 +32,7 @@ def require_transformer_dependencies() -> tuple[object, object]:
     except ImportError as error:
         raise RuntimeError(
             "XLM-RoBERTa nécessite PyTorch et Transformers. "
-            "Installez-les dans un environnement Python 3.11 compatible GPU "
+            "Installez-les dans un environnement Python compatible GPU "
             "avant d'exécuter cette phase."
         ) from error
     return torch, transformers
